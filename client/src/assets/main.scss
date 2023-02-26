@@ -20,6 +20,14 @@
   background-color: $offwhite;
 }
 
+.view{
+  min-height: 100vh;
+  flex: 1;
+  width: 100%;
+  padding: 4rem;
+  padding-bottom: 0;
+}
+
 button,input,textarea{
   font-size: 1rem;
   font-weight: 300;
@@ -37,16 +45,16 @@ form{
 .input{
   >label{
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     opacity: 0.6;
     text-transform: capitalize;
     margin-bottom: 0.4rem;
   }
-  >input,textarea{
+  & input,textarea{
     padding: 0.875rem 1rem;
     width: 100%;
     background-color: inherit;
-    border: 1px solid rgba($color: black, $alpha: 0.2);
+    border:$line-02;
     &:focus{
       outline: none;
     }

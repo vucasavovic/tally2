@@ -9,11 +9,11 @@
           <p v-else>Login and start managing your business.</p>
         </article>
 
-      <RegisterForm v-if="mode=='register'"/>
-      <LoginForm v-else/>
+        <RegisterForm v-if="mode=='register'" @submited="register"/>
+        <LoginForm v-else @submited="login"/>
 
-      <p v-if="mode=='register'">Already have an account? <span class="text-link" @click="mode='login'">Login</span></p>
-      <p v-else>Don't have an account? <span class="text-link" @click="mode='register'">Register</span></p>
+        <p v-if="mode=='register'">Already have an account? <span class="text-link" @click="mode='login'">Login</span></p>
+        <p v-else>Don't have an account? <span class="text-link" @click="mode='register'">Register</span></p>
       </div>
  
     </div>
@@ -35,7 +35,11 @@
   }
   
   const login = function(){
+    console.log('login');
+  }
 
+  const register = function(){
+    console.log('register');
   }
 </script>
 
@@ -46,6 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
   .brand{
     display: block;

@@ -3,7 +3,7 @@
         <form>
           <Input label="email"/>
           <Input type="password" label="password"/>
-        <Button @click="login" text="Login"/>
+         <Button @click="emit('submited')" text="Login"/>
         </form> 
          
     
@@ -12,6 +12,8 @@
 <script setup>
  import Input from '@/components/forms/Input.vue'
  import Button from '@/components/Button.vue'
+ 
+ const emit = defineEmits(['submited'])
 
 </script>
 

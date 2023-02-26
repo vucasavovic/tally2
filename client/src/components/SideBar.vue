@@ -1,0 +1,66 @@
+<template>
+    <div class="side-bar">
+        <span>
+            <div>
+                <img  src="/images/tally-logo-icon.svg" alt="Tally logo icon">
+            </div>
+        </span>
+
+        <span class="nav">
+            <img @click="router.push('/dashboard')"  class="invert" src="/images/icons/home.svg" alt="Dashboard icon">
+            <img @click="router.push('/invoice')" class="invert" src="/images/icons/paper.svg" alt="New invoice icon">
+            <img @click="router.push('/settings')" class="invert" src="/images/icons/avatar.svg" alt="New invoice icon">
+        </span>
+
+        <span>
+           <p @click="router.push('/')">logout</p>
+        </span>
+    </div>
+</template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+</script>
+
+<style lang="scss" scoped>
+.side-bar{
+    position: sticky;
+    top: 0;
+    background-color: $purple;
+    width: 80px;
+    height: 100vh;
+     
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 2rem 1rem;
+ 
+    >*{
+        flex: 1;
+        display: flex;
+    }
+    >:last-child{
+        align-items: flex-end;
+    }
+    >:nth-child(2){
+        align-items: center;
+    }
+}
+
+.invert{
+    filter: invert(1);
+}
+
+.nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    >*{
+        cursor: pointer;
+    }
+}
+</style>

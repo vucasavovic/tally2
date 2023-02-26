@@ -1,10 +1,14 @@
 <template>
-    <button type="button">{{props.text}}</button>
+    <button type="button" :class="props.theme">{{props.text}}</button>
 </template>
 
 <script setup>
  const props = defineProps({ 
-    text:String
+    text:String,
+    theme:{default:'default',
+    validator(val){
+        return ['default','warning','safe'].includes(val) ? val : 'default'
+    }}
 })
 </script>
 
@@ -16,9 +20,37 @@ button{
     background-color: rgba($color: $purple, $alpha: 1);
     color: white;
     transition: all .2s ease-in-out;
+   
+    &.default{
+   
+        background-color: rgba($color: $purple, $alpha: 1);
+     
+    }
+
+    &.warning{
+        background-color: rgba($color: red, $alpha: 1);
+         
+    }
+    &.safe{
+        background-color: rgba($color: green, $alpha: 1);
  
+    }
+
     &:hover{
-        background-color: rgba($color: $purple, $alpha: 0.9);
+            &.default{
+
+                background-color: rgba($color: $purple, $alpha: 0.9);
+
+            }
+
+            &.warning{
+                background-color: rgba($color: rgb(255, 83, 26), $alpha: 1);
+
+            }
+            &.safe{
+                background-color: rgba($color: green, $alpha: 0.9);
+
+            }
     }
 }
 </style>

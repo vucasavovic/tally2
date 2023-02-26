@@ -5,7 +5,7 @@
           <Input label="email"/>
           <Input type="password" label="passwpord"/>
           <Input type="password" label="confirm password"/>
-          <Button @click="register" text="Register"/>
+          <Button @click="emit('submited')" text="Register"/>
         </form>
  
 </template>
@@ -13,11 +13,9 @@
 <script setup>
  import Input from '@/components/forms/Input.vue'
  import Button from '@/components/Button.vue' 
-
-
- const register = function(){
-
-}
+ 
+ const emit = defineEmits(['submited'])
+ 
 </script>
 
 <style lang="scss" scoped>
