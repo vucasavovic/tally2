@@ -4,6 +4,7 @@ import ErrorView from '@/views/ErrorView.vue'
 import AppEntryView from '@/views/AppEntryView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import InvoiceView from '@/views/InvoiceView.vue'
+import AccountSettingsView from '@/views/AccountSettingsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,17 +19,31 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
-      meta:{showSideBar:true}
+      meta:{auth:true,showSideBar:true}
     },
     {
-      path: '/invoice',
-      name: 'invoice',
+      path: '/invoice/new',
+      name: 'invoice-new',
       component: InvoiceView,
-      meta:{showSideBar:true}
+      meta:{auth:true,showSideBar:true}
+    },
+    {
+      path: '/invoice/:id',
+      name: 'invoice-edit',
+      component: InvoiceView,
+      meta:{auth:true,showSideBar:true}
+    },
+    {
+      path: '/settings',
+      name: 'account-settings',
+      component: AccountSettingsView,
+      meta:{auth:true,showSideBar:true}
     },
     {
       path: '/:pathMatch(.*)*',
-      component: ErrorView
+      name:'404',
+      component: ErrorView,
+      meta:{showSideBar:true}
     },
     
   ]

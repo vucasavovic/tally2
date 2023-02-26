@@ -4,14 +4,14 @@
         <div v-if="noInvoices" class="greeting">
             <h2>Welcome to Dashboard!</h2>
             <p> There are no Invoices yet! </p>
-            <Button text="Create an invoice" />
+            <Button  @click="router.push('/invoice/new')" text="Create an invoice" />
         </div>
         
 
         <div v-if="!noInvoices" class="filter">
           <p>Filter</p>
 
-          <Button @click="router.push('/invoice')" text="New invoice" />
+          <Button @click="router.push('/invoice/new')" text="New invoice" />
         </div>
 
         <div v-if="!noInvoices" class="table">
@@ -32,7 +32,7 @@
                 <span>{{ invoice.service }}</span>
                 <span>{{ invoice.serviceCost + store.currency }} </span>
                 <span>
-
+                    <IconButton @click="router.push(`/invoice/${invoice.id}`)" icon="edit.svg"/>
                 </span>
             </div>
         </div>
@@ -45,7 +45,7 @@ import Button from '@/components/Button.vue'
 import {useMainStore} from '@/stores/mainStore.js'
 import { ref,computed } from 'vue';
 import { useRouter } from 'vue-router';
-
+ import IconButton from '@/components/IconButton.vue' 
 const router= useRouter();
 const store = useMainStore();
 const noInvoices = computed(()=>{
@@ -58,11 +58,7 @@ const noInvoices = computed(()=>{
 <style lang="scss" scoped>
 
 .dashboard-view{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-
+ 
   &.y-center{
     justify-content: center;
   }
@@ -83,11 +79,12 @@ const noInvoices = computed(()=>{
 }
 
 .table{
+    border: $line-02;
     width: 100%;
     max-width: 1400px;
     border-radius: $cornerRadius;
     overflow: hidden;
-     
+     box-shadow: $shadow;
 
     >.row{
         display: grid;
@@ -97,12 +94,20 @@ const noInvoices = computed(()=>{
         >:last-child{
          justify-self: end;
         }
-    }
+
+        &:hover{
+            background-color: rgba($color: white, $alpha: .8);
+        }   
+     }
     >.header{
-        background-color: black;
-        color: white; 
+        
+        border-bottom: $line-02;
         max-height: 40px;
         padding: 0.4rem 1rem;
+        font-weight: 700;
+        &:hover{
+            background-color: transparent;
+        } 
     }
  
 }

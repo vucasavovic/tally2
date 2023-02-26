@@ -1,6 +1,6 @@
 <template>
     <div @click="showOptions(true)" class="dropdown-input">   
-        <Input icon="down-arrow.svg" :label="props.label" v-model="Object.values(selected)[1]" readonly/> 
+        <Input icon="down-arrow.svg" :label="props.label" v-model="Object.values(props.modelValue)[1]" readonly/> 
         <div :class="['options',{active:optionsVisible}]">
             <span  v-for="option of props.options" :key="Object.values(option)[0]" @click.stop="select(option)">{{Object.values(option)[1]}} 
                 <span v-if="option.description" class="hint">({{option.description}})</span>
@@ -11,7 +11,7 @@
 
 <script setup>
 import Input from '@/components/forms/Input.vue' 
-import { ref } from 'vue';
+import { ref,watch } from 'vue';
 
     const props = defineProps({ 
         
@@ -20,12 +20,11 @@ import { ref } from 'vue';
         modelValue:Object
     })
 
-  
-    const selected = ref(props.options[0]);
+ 
     const emit = defineEmits(['update:modelValue'])
-
+     
     const select = function(option){
-        selected.value = option;
+        
         emit('update:modelValue',option)
         showOptions(false)
     }

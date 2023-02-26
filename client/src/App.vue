@@ -6,10 +6,10 @@
 </template>
 
 <script setup>
- import SideBar from '@/components/SideBar.vue' 
+import SideBar from '@/components/SideBar.vue' 
 import { ref } from 'vue';
- import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
- 
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+
 
  const route = useRoute();
  

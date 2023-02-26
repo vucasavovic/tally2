@@ -1,30 +1,38 @@
 <template>
     <div class="side-bar">
         <span>
-            <div>
-                <img  src="/images/tally-logo-icon.svg" alt="Tally logo icon">
+            <div class="brand">
+                <img  src="/images/tally-logo-vertical.svg" alt="Tally logo icon">
             </div>
         </span>
+ 
 
-        <span class="nav">
+        <span  class="nav">
             <img @click="router.push('/dashboard')"  class="invert" src="/images/icons/home.svg" alt="Dashboard icon">
-            <img @click="router.push('/invoice')" class="invert" src="/images/icons/paper.svg" alt="New invoice icon">
+            <img @click="router.push('/invoice/new')" class="invert" src="/images/icons/paper.svg" alt="New invoice icon">
             <img @click="router.push('/settings')" class="invert" src="/images/icons/avatar.svg" alt="New invoice icon">
         </span>
 
         <span>
-           <p @click="router.push('/')">logout</p>
+           <p class="white-text"  @click="router.push('/')">logout</p>
         </span>
     </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 </script>
 
 <style lang="scss" scoped>
+
+.brand{
+    >img{
+        width: 100%;
+    }
+}
 .side-bar{
     position: sticky;
     top: 0;
