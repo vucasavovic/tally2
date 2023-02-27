@@ -1,13 +1,15 @@
 <template>
    <div class="view">
+    <Title :tier="1" size="xl" text="Invoice" class="view-title"/>
     <PopUp ref="popup" />
     <InvoiceForm ref="invoiceForm"  @saved="onInvoiceSaved" @refreshed="onInvoiceRefreshed"/> 
    </div>
 </template>
 
 <script setup>
+import Title from '@/components/Title.vue' 
 import PopUp from '../components/PopUp.vue';
- import InvoiceForm from '@/components/forms/InvoiceForm.vue' 
+import InvoiceForm from '@/components/forms/InvoiceForm.vue' 
 import { ref } from 'vue';
 
  const popup = ref(null);

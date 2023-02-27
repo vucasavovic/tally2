@@ -1,19 +1,33 @@
 <template>
     <form class="invoice">
-        
-            <div class="title span-full">
-                <h1>New invoice</h1>
-                <p>{{ invoice.invoiceId || 'no id' }}</p>
-            </div>
+ 
 
+        <form  class="invoice-form">
 
-        <div class="body">
+            
 
             <div class="group half">
                 <h3>Bill to</h3>
                 <Input label="recepient name" v-model="invoice.recepientName"/>
                 <Input label="recepient address" v-model="invoice.recepientAddress"/>
                 <Input type="date" label="due date" v-model="invoice.dueDate"/>
+            </div>
+
+          
+
+            <div class="group full ">
+              
+                    <Input label="Service title" v-model="invoice.serviceTitle"/>
+                    <TextareaInput label="service description" v-model="invoice.serviceDescription"/>
+             
+                    <Input type="number" :icon="`currency-${store.currency.val}.svg`" label="service price" v-model.number="invoice.servicePrice"/>
+              
+            </div>
+ 
+            <div class="group full">
+                <h3>Payment instructions</h3>
+                <DropdownInput v-model="invoice.paymentMethod" :options="paymentMethods" label="Payment method"/>
+                <TextareaInput label="notes" v-model="invoice.notes"/>
             </div>
 
             <div class="summary half">
@@ -24,21 +38,6 @@
                 <div><p>Tax amount</p><p>{{ tax }} {{ store.currency.val }} ({{store.tax}})</p></div>
                 <div><p>Total</p><p>{{ invoice.servicePrice + tax }} {{ store.currency.val }}</p></div>
             </div>
-
-            <div class="group full ">
-              
-                    <Input label="Service title" v-model="invoice.serviceTitle"/>
-                    <TextareaInput label="service description" v-model="invoice.serviceDescription"/>
-             
-                    <Input type="number" :icon="`currency-${store.currency}.svg`" label="service price" v-model.number="invoice.servicePrice"/>
-              
-            </div>
- 
-            <div class="group full">
-                <h3>Payment instructions</h3>
-                <DropdownInput v-model="invoice.paymentMethod" :options="paymentMethods" label="Payment method"/>
-                <TextareaInput label="notes" v-model="invoice.notes"/>
-            </div>
  
             <div  class=" options full">
                 <Button   @click="emit('saved',invoice)" text="Save"/>
@@ -46,7 +45,9 @@
             </div>
             
 
-        </div>
+
+
+        </form>
  
     </form>
 </template>
@@ -107,8 +108,12 @@ defineExpose({refresh})
 </script>
 
 <style lang="scss" scoped>
-.invoice{
-    border-bottom: 0;
+.invoice-form{
+    
+    max-width: 720px;
+     display: flex;
+     flex-direction: column;
+     gap: 3rem;
 }
   
 

@@ -1,0 +1,12 @@
+### Add payment method
+POST http://localhost:3000/user/payment-method/add
+Content-Type: application/json
+
+{
+    "name":"Hyppo Adria",
+    "accountNum":"234567890-345678",
+    "description":"Who cares."
+}
+
+### Get all Payment Methods
+GET http://localhost:3000/user/payment-methods

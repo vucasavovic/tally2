@@ -1,6 +1,8 @@
 <template>
     <div :class="['view','dashboard-view',{'y-center':noInvoices}]"  >
 
+        <Title :tier="1" text="Dashboard" size="xl"/>
+
         <div v-if="noInvoices" class="greeting">
             <h2>Welcome to Dashboard!</h2>
             <p> There are no Invoices yet! </p>
@@ -30,7 +32,7 @@
                     <p>{{ invoice.clientAddress }}</p>
                 </span>
                 <span>{{ invoice.service }}</span>
-                <span>{{ invoice.serviceCost + store.currency }} </span>
+                <span>{{ invoice.serviceCost + store.currency.val }} </span>
                 <span>
                     <IconButton @click="router.push(`/invoice/${invoice.id}`)" icon="edit.svg"/>
                 </span>
@@ -41,6 +43,7 @@
 </template>
 
 <script setup>
+import Title from '@/components/Title.vue' 
 import Button from '@/components/Button.vue'
 import {useMainStore} from '@/stores/mainStore.js'
 import { ref,computed } from 'vue';
@@ -56,14 +59,7 @@ const noInvoices = computed(()=>{
 </script>
 
 <style lang="scss" scoped>
-
-.dashboard-view{
  
-  &.y-center{
-    justify-content: center;
-  }
-}
-
 .filter{
     max-width: 1400px;
     width: 100%;
@@ -75,21 +71,21 @@ const noInvoices = computed(()=>{
 }
 
 .invoice-row{
-    border-bottom: 1px solid rgba($color: #000000, $alpha: .1);
+    border-bottom: $line-02;
 }
 
 .table{
-    border: $line-02;
+ 
     width: 100%;
     max-width: 1400px;
     border-radius: $cornerRadius;
     overflow: hidden;
-     box-shadow: $shadow;
+  
 
     >.row{
         display: grid;
         grid-template-columns: 200px 1fr 1fr 1fr 120px;
-        padding: 1rem;
+        padding: 1rem 0;
         align-items: center;
         >:last-child{
          justify-self: end;
@@ -102,8 +98,9 @@ const noInvoices = computed(()=>{
     >.header{
         
         border-bottom: $line-02;
+        border-top: $line-02;
         max-height: 40px;
-        padding: 0.4rem 1rem;
+        padding: 0.4rem 0;
         font-weight: 700;
         &:hover{
             background-color: transparent;
@@ -118,6 +115,7 @@ const noInvoices = computed(()=>{
     }
     >:last-child{
         color: rgba($color: #000000, $alpha: 0.4);
+        font-size: 0.8rem;
     }
 }
 

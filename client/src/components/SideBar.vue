@@ -14,7 +14,7 @@
         </span>
 
         <span>
-           <p class="white-text"  @click="router.push('/')">logout</p>
+           <p class="white-text"  @click="router.push('/')">Logout</p>
         </span>
     </div>
 </template>

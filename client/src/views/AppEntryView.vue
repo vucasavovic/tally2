@@ -1,46 +1,55 @@
 <template>
     <div class="entry-view">
 
-      <div  class="forms">
+      <section class="entry-form">
  
         <article class="greeting">
           <img class="brand" src="/images/tally-logo.svg" alt="Tally logo">
           <p v-if="mode=='register'">Register. Tally is an invoice management app.</p>
           <p v-else>Login and start managing your business.</p>
         </article>
+ 
 
-        <RegisterForm v-if="mode=='register'" @submited="register"/>
-        <LoginForm v-else @submited="login"/>
+        <form >
+          <Input label="username"/>
+          <Input label="email"/>
+          <Input v-if="mode=='register'" type="password" label="password"/>
+          <Input v-if="mode=='register'" type="password" label="confirm password"/>
+          <Button v-if="mode=='login'" @click="login" text="Login"/>
+          <Button v-else @click="register" text="Register"/>
+        </form>
 
         <p v-if="mode=='register'">Already have an account? <span class="text-link" @click="mode='login'">Login</span></p>
         <p v-else>Don't have an account? <span class="text-link" @click="mode='register'">Register</span></p>
-      </div>
+      
+      </section>
  
     </div>
 </template>
 
 
 <script setup>
-  import RegisterForm from '@/components/forms/RegisterForm.vue' 
-  import LoginForm from '@/components/forms/LoginForm.vue' 
-  import { useRoute } from 'vue-router';
-  import { ref } from 'vue';    
+
+import Input from '@/components/forms/Input.vue' 
+import Button from '@/components/Button.vue' 
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';    
  
-  const route = useRoute();
+const route = useRoute();
 
-  const mode = ref('login');
-  let modeTemp = route.path.split('/').pop();
-  if(modeTemp){
-    mode.value=modeTemp
-  }
+const mode = ref('login');
+let modeTemp = route.path.split('/').pop();
+if(modeTemp){
+  mode.value=modeTemp
+}
   
-  const login = function(){
-    console.log('login');
-  }
+const login = function(){
+  console.log('login');
+}
 
-  const register = function(){
-    console.log('register');
-  }
+const register = function(){
+  console.log('register');
+}
 </script>
 
 <style lang="scss" scoped>
@@ -54,21 +63,36 @@
   }
   .brand{
     display: block;
-    width: 132px;
+    width: 162px;
     margin:  0 auto; 
   }
  
-
-  
-
-  .forms{
+  .entry-form{
     width: 100%;
-    max-width: 520px;
+    max-width: 560px;
+ 
+    padding: 4rem;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
+
+    >form{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      >  button{
+        margin: 0 auto; 
+        margin-top: 1.6rem;
+        width: 100%;
+  
+
+      }
+
+    }
+
   }
 
   .greeting{

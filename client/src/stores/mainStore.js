@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useMainStore = defineStore('main', () => {
-  const currencyTypes = ref([{id:0,val:'$'},{id:1,val:'€'},{id:2,val:'Rsd'}])
+  const currencyTypes = ref([{id:0,name:'Dollar',symbol:'$'},{id:1,name:'Euro',symbol:'eur'},{id:2,name:'Serbian Dinar',symbol:'rsd'},{id:3,name:'Ruble',symbol:'rus'}])
    const currency = ref(currencyTypes.value[0]);
    const tax = 20;
   const invoices= ref([
@@ -13,7 +13,7 @@ export const useMainStore = defineStore('main', () => {
     {id:4,num:"5/2023",clientName:'Borko Stefanovic',clientAddress:'Moore St. 123.',service:'Web development',serviceCost:1200}
   ])
 
-  
+  const paymentMethods = ref(null);
 
-  return {currencyTypes,currency, tax, invoices }
+  return {paymentMethods, currencyTypes,currency, tax, invoices }
 })
