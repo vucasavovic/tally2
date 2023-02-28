@@ -28,7 +28,7 @@ const router = createRouter({
       meta:{auth:true,showSideBar:true}
     },
     {
-      path: '/invoice/:id',
+      path: '/invoice/edit/:id',
       name: 'invoice-edit',
       component: InvoiceView,
       meta:{auth:true,showSideBar:true}

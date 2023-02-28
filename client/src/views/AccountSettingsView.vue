@@ -15,7 +15,7 @@
 
                 <div class="group currency">
                     <Title :tier="2" size="m" text="Currency"/>
-                    <DropdownInput v-model="formData.currency" :options="store.currencyTypes" label="Currency" />
+                    <DropdownInput v-if="store.currencyTypes" v-model="formData.currency" :options="store.currencyTypes" label="Currency" />
                 </div>
 
                 <div class="group payment-methods">
@@ -25,16 +25,17 @@
                         <div v-for="method in store.paymentMethods" :key="method.id" class="method">
                             <span>{{ method.name }}</span>
                             <span>{{ method.account_num }}</span>
-                            <TextButton text="Delete"/>
+                            <TextButton @click="handleDeletePaymentMethod(method.account_num)" text="Delete"/>
                         </div>
                     </div>
   
                     <div >
-                        <Input label="Institution name" />
-                        <Input label="Account num" />
+                        <Input label="Institution name" v-model="paymentMethodData.name"/>
+                        <Input label="Account num" v-model="paymentMethodData.account_num"/>
+                        <Input label="Brief description" v-model="paymentMethodData.description"/>
                     </div>
 
-                    <Button size="small" text="Add +"/>
+                    <Button @click="handleAddPaymentMethod" size="small" text="Add +"/>
                 </div>
 
                 <Button text="Save"/>
@@ -46,19 +47,53 @@
 </template>
 
 <script setup>
+import {getPaymentMethods,deletePaymentMethod,addPaymentMethod} from '@/services/api'
+import {useMainStore} from '@/stores/mainStore'
+import { ref,reactive } from 'vue';
+
 import Title from '@/components/Title.vue' 
 import Input from '@/components/forms/Input.vue' 
+import TextareaInput from '@/components/forms/TextareaInput.vue' 
 import Button from '@/components/Button.vue'
 import TextButton from '@/components/TextButton.vue'  
 import DropdownInput from '@/components/forms/DropdownInput.vue' 
-import {useMainStore} from '@/stores/mainStore'
-import { ref } from 'vue';
+
 
 const store = useMainStore();
+
+const paymentMethodData = reactive({
+    name:'',
+    account_num:'',
+    description:''
+})
 
 const formData = ref({
     currency:store.currency,
 })
+
+const handleAddPaymentMethod = async function(){
+    if(paymentMethodData.name!='' || paymentMethodData.account_num!=''){
+        const res = await addPaymentMethod(paymentMethodData)
+        if(res.status.error){
+            console.log(res.status.message)
+        }
+        else{
+            store.paymentMethods = await getPaymentMethods();
+            paymentMethodData.name=''
+            paymentMethodData.account_num=''
+            paymentMethodData.description=''
+        }
+    }else{
+        return
+    }
+}
+
+const handleDeletePaymentMethod = async function(accountNum){
+    const success = await deletePaymentMethod(accountNum);
+    if(success){
+        store.paymentMethods = await getPaymentMethods();
+    }
+}
 
 </script>
 

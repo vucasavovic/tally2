@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import {getPaymentMethods} from "@/services/api"
+import {getCurrency, getPaymentMethods,getInvoices} from "@/services/api"
 import SideBar from '@/components/SideBar.vue' 
 import { ref,onMounted } from 'vue';
 import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
@@ -17,12 +17,17 @@ const store = useMainStore();
  
 
 onMounted(async ()=>{
-  store.paymentMethods  = await getPaymentMethods()
+  store.paymentMethods  = await getPaymentMethods();
+
+  const {status,payload} = await getInvoices();
+    store.invoices = payload;
+
+
+    store.currencyTypes = await getCurrency();
+    store.currency = store.currencyTypes[0];
 })
  
-
-
-
+ 
 </script>
 
 <style lang="scss" scoped>

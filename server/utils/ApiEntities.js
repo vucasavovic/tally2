@@ -14,20 +14,26 @@ class ApiResponse{
         this.payload= payload
     }
 
-    static success = function(payload){
+    static success = function(payload=null){
         const status = new ApiResponseStatus(false,200,"Success!");
         return new ApiResponse(status,payload)
     }
-    static error = function(code,message){
-        const status = new ApiResponseStatus(true,code,message);
+    static error = function(message){
+        const status = new ApiResponseStatus(true,500,message);
         return new ApiResponse(status)
     }
-    static custom = function(statusCode,message,payload){
+    static custom = function(statusCode,message,payload=null){
         const status = new ApiResponseStatus(true,statusCode,message);
         return new ApiResponse(status,payload)
     }
  
 }
 
+class ApiError{
+    constructor(){
+        
+    }
+}
 
-module.exports = { ApiResponse }
+
+module.exports = { ApiResponse, ApiError }

@@ -25,16 +25,19 @@
                 <span>Cmd</span>
             </div>
 
-            <div v-for="(invoice,i) in store.invoices" :key="i" class="row invoice-row">
-                <span>{{ invoice.num }}</span>
+            <div>
+                
+            </div>
+            <div  v-for="(invoice,i) in store.invoices" :key="i" class="row invoice-row">
+                <span>{{ invoice.id }}</span>
                 <span class="recepient">
-                    <p>{{ invoice.clientName }}</p>
-                    <p>{{ invoice.clientAddress }}</p>
+                    <p>{{ invoice.recepientName }}</p>
+                    <p>{{ invoice.recepientAddress }}</p>
                 </span>
-                <span>{{ invoice.service }}</span>
-                <span>{{ invoice.serviceCost + store.currency.val }} </span>
+                <span>{{ invoice.serviceTitle }}</span>
+                <span>{{ invoice.servicePrice +  currentCurrency }} </span>
                 <span>
-                    <IconButton @click="router.push(`/invoice/${invoice.id}`)" icon="edit.svg"/>
+                    <IconButton @click="router.push(`/invoice/edit/${invoice.id}`)" icon="edit.svg"/>
                 </span>
             </div>
         </div>
@@ -43,25 +46,39 @@
 </template>
 
 <script setup>
+import { getInvoices } from '../services/api';
+import {useMainStore} from '@/stores/mainStore.js'
+import { ref,computed,onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import Title from '@/components/Title.vue' 
 import Button from '@/components/Button.vue'
-import {useMainStore} from '@/stores/mainStore.js'
-import { ref,computed } from 'vue';
-import { useRouter } from 'vue-router';
- import IconButton from '@/components/IconButton.vue' 
+import IconButton from '@/components/IconButton.vue' 
+
 const router= useRouter();
 const store = useMainStore();
-const noInvoices = computed(()=>{
-    return store.invoices.length==0
+
+const currentCurrency = computed(()=>{
+    if(store.currency){
+        return store.currency.symbol
+    }else{
+        return ''
+    }
 })
 
+const noInvoices = computed(()=>{
+    if(store.invoices){
+        return store.invoices.length==0
+    }
+})
 
+ 
 </script>
 
 <style lang="scss" scoped>
  
 .filter{
-    max-width: 1400px;
+    max-width: 1000px;
     width: 100%;
     padding: 1rem 0;
 
@@ -77,7 +94,7 @@ const noInvoices = computed(()=>{
 .table{
  
     width: 100%;
-    max-width: 1400px;
+    max-width: 1000px;
     border-radius: $cornerRadius;
     overflow: hidden;
   

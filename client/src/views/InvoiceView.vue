@@ -2,23 +2,33 @@
    <div class="view">
     <Title :tier="1" size="xl" text="Invoice" class="view-title"/>
     <PopUp ref="popup" />
-    <InvoiceForm ref="invoiceForm"  @saved="onInvoiceSaved" @refreshed="onInvoiceRefreshed"/> 
+    <InvoiceForm  ref="invoiceForm"   @submitted="onInvoiceSubmit" @refreshed="onInvoiceRefreshed"/> 
    </div>
 </template>
 
 <script setup>
+import { addInvoice } from '../services/api';
+import { useMainStore } from '../stores/mainStore';
+import { ref,onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
 import Title from '@/components/Title.vue' 
 import PopUp from '../components/PopUp.vue';
 import InvoiceForm from '@/components/forms/InvoiceForm.vue' 
-import { ref } from 'vue';
 
- const popup = ref(null);
- const invoiceForm = ref(null);
-
- const onInvoiceSaved = (invoice)=>{
-    popup.value.showPopup('Save invoice?',"Once saved, an invoice can't be deleted.",()=>{
-        console.log('Invoice data sent to backend!')
+ 
+const route = useRoute();
+const store = useMainStore()
+const popup = ref(null);
+const invoiceForm = ref(null);
+ 
+ const onInvoiceSubmit = (invoice)=>{
+    popup.value.showPopup('Save invoice?',"", async ()=>{
+        const {status,payload} = await addInvoice(invoice);   
+        store.invoices = payload;
+        console.log(status.message)
     })
+ 
  }
 
  const onInvoiceRefreshed = (invoice)=>{
@@ -27,6 +37,7 @@ import { ref } from 'vue';
     })
  }
 
+ 
  
 </script>
 

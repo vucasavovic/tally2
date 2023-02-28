@@ -82,6 +82,7 @@ defineExpose({showPopup})
         margin-top: 2rem;
             width: 100%;
             display: flex;
+            gap: 4rem;
             justify-content: space-between;
     }
 }

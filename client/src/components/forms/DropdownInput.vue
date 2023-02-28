@@ -1,39 +1,48 @@
 <template>
-    <div @click="showOptions(true)" class="dropdown-input">   
-        <Input icon="down-arrow.svg" :label="props.label" v-model="Object.values(props.modelValue)[1]" readonly/> 
+    <div  @click="showOptions(true)" class="dropdown-input">   
+        <Input icon="down-arrow.svg" :label="props.label" v-model="modVal" readonly/> 
         <div :class="['options',{active:optionsVisible}]">
-            <span  v-for="option of props.options" :key="Object.values(option)[0]" @click.stop="select(option)">{{Object.values(option)[1]}} 
-                <span v-if="option.description" class="hint">({{option.description}})</span>
-            </span>
+          <span  v-for="option of props.options" :key="option.id" @click.stop="select(option)">{{option.name}} 
+            <span v-if="option.description" class="hint">({{option.description}})</span>
+          </span>
         </div>
     </div>
 </template>
 
 <script setup>
 import Input from '@/components/forms/Input.vue' 
-import { ref,watch } from 'vue';
+import { ref,watch,computed,onMounted } from 'vue';
 
     const props = defineProps({ 
-        
         label:String,
-        options:{type:Array},
+        options :{type:Array,default:[{id:'00000',name:'Undefined'}]},
         modelValue:Object
     })
+    
+    const modVal = computed(()=>{
+        if(props.modelValue) return props.modelValue.name
+        return ''
+    })
 
- 
     const emit = defineEmits(['update:modelValue'])
-     
+    emit('update:modelValue',props.options[0])
+  
     const select = function(option){
-        
         emit('update:modelValue',option)
         showOptions(false)
     }
 
     const optionsVisible = ref(false)
     const showOptions = function(show){
-        optionsVisible.value = show;
+       optionsVisible.value = show;
     }
+ 
 
+    onMounted(()=>{
+        emit('update:modelValue',props.options[0])
+    })
+
+ 
 </script>
 
 <style lang="scss" scoped>

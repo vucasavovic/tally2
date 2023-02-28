@@ -10,3 +10,27 @@ Content-Type: application/json
 
 ### Get all Payment Methods
 GET http://localhost:3000/user/payment-methods
+
+### ADDNEW Invoice
+POST http://localhost:3000/user/invoice/add
+Content-Type: application/json
+
+{
+    "recepientName":"Mike",
+    "recepientAddress":"aaa 222",
+    "dueDate":"2023-06-25",
+    "serviceTitle":"Graphic design",
+    "serviceDescription":"Graphic design for new public campaign.",
+    "servicePrice":2200,
+    "paymentMethodId":0,
+    "paymentInstructions":"Lorem ipsum dolor sit amet consectetur adipiscing elit morbi curabitur, euismod habitasse faucibus praesent tortor primis scelerisque porta natoque enim, et sagittis pulvinar sapien ut nostra molestie class."
+}
+###  GETALL Invoice 
+GET http://localhost:3000/user/invoices
+ 
+
+###
+GET http://localhost:3000/user/currency/all
+ 
+ 
+ 

@@ -9,7 +9,7 @@
 
         <span  class="nav">
             <img @click="router.push('/dashboard')"  class="invert" src="/images/icons/home.svg" alt="Dashboard icon">
-            <img @click="router.push('/invoice/new')" class="invert" src="/images/icons/paper.svg" alt="New invoice icon">
+            <img v-if="route.name!='invoice-new' || route.name!='invoice-edit' " @click="router.push('/invoice/new')" class="invert" src="/images/icons/paper.svg" alt="New invoice icon">
             <img @click="router.push('/settings')" class="invert" src="/images/icons/avatar.svg" alt="New invoice icon">
         </span>
 
